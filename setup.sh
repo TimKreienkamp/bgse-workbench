@@ -15,8 +15,8 @@ install)
 	mysql -u $user -p$pswd < db/ecommerce.sql
 	mysql -u $user -p$pswd < data/ecommerce-dump.sql
 
-	mkdir -p "$HOME/public_html/MyApp"
-	cp -rf web/* "$HOME/public_html/MyApp"
+	mkdir -p "$HOME/Sites/MyApp"
+	cp -rf web/* "$HOME/Sites/MyApp"
 
 	echo "done!"
 	;;

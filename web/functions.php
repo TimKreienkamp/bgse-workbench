@@ -1,7 +1,7 @@
 <?php
 
 function connect_to_db() {    
-    $host = "localhost";
+    $host = "127.0.0.1";
     $dbuser = "root";
     $dbpass = "root";
     $dbname = "ecommerce";
