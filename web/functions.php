@@ -4,7 +4,7 @@ function connect_to_db() {
     $host = "127.0.0.1";
     $dbuser = "root";
     $dbpass = "root";
-    $dbname = "ecommerce";
+    $dbname = "stackexchange";
 
     $link = mysql_connect($host,$dbuser,$dbpass);
 
