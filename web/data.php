@@ -12,7 +12,7 @@ $link = connect_to_db();
 
 
 // Page body. Write here your queries
-$query = "SELECT * FROM ecommerce.customers limit 15";
+$query = "SELECT * FROM stackexchange.Badges limit 15";
 $title = "Customer list (15 customers)";
 query_and_print_table($query,$title);
 echo "Comment 1";
@@ -32,6 +32,7 @@ $query = "SELECT ProductName, UnitPrice FROM ecommerce.products ORDER BY UnitPri
 $title = "Top cheap products";
 query_and_print_graph($query,$title,"Euros");
 echo "Comment 4";
+
 
 
 
