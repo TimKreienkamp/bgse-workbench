@@ -13,14 +13,20 @@ $link = connect_to_db();
 
 // Page body. Write here your queries
 $query = "SELECT * FROM stackexchange.Badges limit 15";
-$title = "Customer list (15 customers)";
+$title = "Badges list (15 badges)";
 query_and_print_table($query,$title);
 echo "Comment 1";
 
-$query = "SELECT * FROM ecommerce.products LIMIT 10";
-$title = "Product list (10 elements)";
+$query = "SELECT count(TagId) as QuestionsTaggedBayes from stackexchange.Tags where lower(TagName) like '%bayes%'";
+$title = "Questions about Bayes";
 query_and_print_table($query,$title);
 echo "Comment 2";
+
+$query = "SELECT count(PostId) as NumberOfPosts from stackexchange.Posts";
+$title = "Questions about Bayes";
+query_and_print_table($query,$title);
+echo "Comment 2";
+
 
 // query_and_print_graph: Needs two columns: the first one with labels, the second one with values of the graph
 $query = "SELECT ProductName, UnitPrice FROM ecommerce.products ORDER BY UnitPrice DESC LIMIT 10";

@@ -3,8 +3,34 @@
 <html>
 <head>
 	<title>MyApp</title>    
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/media-queries.css">
+    <link rel="stylesheet" href="css/animate.css">
 </head>
+
+<header>
+
+     <div id="header"><h1>Cross Validated Analytics</h1></div>
+
+      <nav id="nav-wrap">         
+         
+         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+	      <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>         
+
+         <ul id="nav" class="nav">
+            <li><a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> </li>
+	        <li><a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a></li>
+            <li><a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analysis</a></li>
+     
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+      
+      </ul>
+
+   </header> <!-- Header End -->
 <script>
 /**
  * Given an element, or an element ID, blank its style's display
@@ -47,23 +73,17 @@ function show_content(optionsId) {
 	}
 }
 </script>
-<body>
-	<div id="header"><h1>MyApp</h1></div>
 
-	<div id="menu">
-		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
-		<a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a> &middot;
-		<a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analysis</a> 
-	</div>
+<body>
+	<div id="header"><h1>Cross Validated Analytics</h1></div>
 
 	<div id="main">
 
-		<div id="home">
-			<h2>Home</h2>
 
+		<div id="home">
+			<h2>   </h2>
 			<p>
-			Here you have to describe what your app is about. Use approximately 200 words to summarise what is the service you are providing.
-			Add links to external sources like <a href="http://www.wikipedia.org" target="_blank">Wikipedia</a> if needed.
+			This is the Project of Jordan McIver, Philipp Schmidt and Tim Kreienkamp.
 			</p>
 		</div>	
 
