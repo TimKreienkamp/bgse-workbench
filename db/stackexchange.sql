@@ -137,6 +137,21 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+LOAD DATA INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posts_2013.csv'
+INTO TABLE Posts
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOAD DATA INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posts_before_2013.csv'
+INTO TABLE Posts
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 DROP TABLE IF EXISTS Tags;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
