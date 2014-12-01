@@ -25,7 +25,7 @@ CREATE TABLE `Badges` (
   PRIMARY KEY (`BadgeID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
-LOAD DATA LOCAL INFILE 'Users/philippschmidt/Documents/bgse-workbench/data/badges.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/badges.csv' 
 INTO TABLE Badges 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -48,7 +48,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`CommentID`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/comments.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/comments.csv' 
 INTO TABLE Comments 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -71,7 +71,7 @@ CREATE TABLE `PostHistory` (
   PRIMARY KEY (`PostHistoryID`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posthistory.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posthistory.csv' 
 INTO TABLE PostHistory 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -92,7 +92,7 @@ CREATE TABLE `PostLinks` (
   PRIMARY KEY (`PostLinkId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/postlinks.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/postlinks.csv' 
 INTO TABLE PostLinks 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS Posts;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Posts` (
-  `PostsId` int,
+  `PostId` int,
   `PostTypeId` tinyint,
   `AcceptedAnswerId` int,
   `ParentId` int,
@@ -129,7 +129,7 @@ CREATE TABLE `Posts` (
   PRIMARY KEY (`PostId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posts_2014.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posts_2014.csv' 
 INTO TABLE Posts 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -165,7 +165,7 @@ CREATE TABLE `Tags` (
   PRIMARY KEY (`TagId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/tags.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/tags.csv' 
 INTO TABLE Tags 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -195,7 +195,7 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`UserId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/users.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/users.csv' 
 INTO TABLE Users 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -217,7 +217,7 @@ CREATE TABLE `Votes` (
   PRIMARY KEY (`VoteId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/votes.csv' 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/votes.csv' 
 INTO TABLE Votes 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
