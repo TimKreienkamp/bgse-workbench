@@ -2,35 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 <head>
-	<title>MyApp</title>    
-	<link rel="stylesheet" type="text/css" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/media-queries.css">
-    <link rel="stylesheet" href="css/animate.css">
+	<title>MyApp</title> 
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
-<header>
-
-     <div id="header"><h1>Cross Validated Analytics</h1></div>
-
-      <nav id="nav-wrap">         
-         
-         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
-	      <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>         
-
-         <ul id="nav" class="nav">
-            <li><a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> </li>
-	        <li><a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a></li>
-            <li><a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analysis</a></li>
-     
-         </ul> <!-- end #nav -->
-
-      </nav> <!-- end #nav-wrap -->
-
-      
-      </ul>
-
-   </header> <!-- Header End -->
 <script>
 /**
  * Given an element, or an element ID, blank its style's display
@@ -45,7 +20,6 @@ function show(element) {
 	element.style.display = '';
     }
 }
-
 /**
  * Given an element, or an element ID, set its style's display property
  * to 'none'
@@ -59,12 +33,10 @@ function hide(element) {
 	element.style.display = 'none';
     }
 }
-
 function show_content(optionsId) {
 	var ids = new Array('home','data','analysis');
 	show(optionsId);
 	document.getElementById(optionsId + '_link').className = 'active';
-
 	for (var i = 0; i < ids.length; i++)
 	{
 	    if (ids[i] == optionsId) continue;
@@ -73,19 +45,41 @@ function show_content(optionsId) {
 	}
 }
 </script>
+<body style = "background:#23292f">
+	<header>
 
-<body>
-	<div id="header"><h1>Cross Validated Analytics</h1></div>
+      
 
-	<div id="main">
+      <nav id="nav-wrap">         
+         
+         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+         <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>         
 
+         <ul id="nav" class="nav">
+            <li><a class="smoothscroll" href="./index.php">Home</a></li>
+            <li><a class="smoothscroll" href="./activity.php">Activity and Engagement</a></li>
+            <li><a class="smoothscroll" href="./content.php">Content Analytics</a></li>
+            <li><a class="smoothscroll" href="./predictive.php">Predictive Analytics</a></li>
+            <li><a class="smoothscroll" href="#network">Network Analysis</a></li>
+         </ul> <!-- end #nav -->
 
-		<div id="home">
-			<h2>   </h2>
-			<p>
-			This is the Project of Jordan McIver, Philipp Schmidt and Tim Kreienkamp.
+      </nav> <!-- end #nav-wrap -->
+
+   
+
+   </header> <!-- Header End -->
+
+	
+
+	<div id="main" style = "background:#23292f">
+
+		
+			<h1 style = "text-align:center; font = montserrat-regular; color: white">Project Description</h1>
+
+			<p style = "text-align:center; width = 75px; color:lightgrey">
+			This is the Project of Jordan, Philipp and Tim.
 			</p>
-		</div>	
+			
 
 		<div id="data" style="display: none">
 			<h2>Data</h2>

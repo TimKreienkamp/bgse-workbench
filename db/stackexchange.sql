@@ -101,10 +101,10 @@ IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP TABLE IF EXISTS Posts;
+DROP TABLE IF EXISTS Posts_2014;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Posts` (
+CREATE TABLE `Posts_2014` (
   `PostId` int,
   `PostTypeId` tinyint,
   `AcceptedAnswerId` int,
@@ -129,29 +129,79 @@ CREATE TABLE `Posts` (
   PRIMARY KEY (`PostId`)
 );
 
+
 LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posts_2014.csv' 
-INTO TABLE Posts 
+INTO TABLE Posts_2014 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-LOAD DATA INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posts_2013.csv'
-INTO TABLE Posts
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+DROP TABLE IF EXISTS Posts_2013;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Posts_2013` (
+  `PostId` int,
+  `PostTypeId` tinyint,
+  `AcceptedAnswerId` int,
+  `ParentId` int,
+  `CreationDate` datetime,
+  `Score` int,
+  `ViewCount` int,
+  `Body` varchar(8000),
+  `OwnerUserId` int,
+  `OwnerDisplayName` varchar(40),
+  `LastEditorUserId` int,
+  `LastEditorDisplayName` varchar(40),
+  `LastEditDate` datetime,
+  `LastActivityDate` datetime,
+  `Title` varchar(250),
+  `Tags` varchar(150),
+  `AnswerCount` int,
+  `CommentCount` int,
+  `FavoriteCount` int,
+  `ClosedDate` datetime,
+  `CommunityOwnedDate` datetime,
+  PRIMARY KEY (`PostId`)
+);
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-LOAD DATA INFILE '/Users/philippschmidt/Documents/bgse-workbench/data/posts_before_2013.csv'
-INTO TABLE Posts
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS Posts_before_2013;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Posts_before_2013` (
+  `PostId` int,
+  `PostTypeId` tinyint,
+  `AcceptedAnswerId` int,
+  `ParentId` int,
+  `CreationDate` datetime,
+  `Score` int,
+  `ViewCount` int,
+  `Body` varchar(8000),
+  `OwnerUserId` int,
+  `OwnerDisplayName` varchar(40),
+  `LastEditorUserId` int,
+  `LastEditorDisplayName` varchar(40),
+  `LastEditDate` datetime,
+  `LastActivityDate` datetime,
+  `Title` varchar(250),
+  `Tags` varchar(150),
+  `AnswerCount` int,
+  `CommentCount` int,
+  `FavoriteCount` int,
+  `ClosedDate` datetime,
+  `CommunityOwnedDate` datetime,
+  PRIMARY KEY (`PostId`)
+);
+
+
+
+
+
 
 DROP TABLE IF EXISTS Tags;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

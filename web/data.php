@@ -1,3 +1,11 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+	<title>MyApp</title> 
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <?php
 
 include 'functions.php';
@@ -41,6 +49,7 @@ echo "Comment 4";
 
 
 
+?>
 
 // Close connection
 mysql_close($link);
