@@ -33,7 +33,6 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 DROP TABLE IF EXISTS Comments;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -101,10 +100,11 @@ IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP TABLE IF EXISTS Posts_2014;
+DROP TABLE IF EXISTS Posts;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Posts_2014` (
+CREATE TABLE `Posts` (
+  `Rowname` int,
   `PostId` int,
   `PostTypeId` tinyint,
   `AcceptedAnswerId` int,
@@ -130,77 +130,13 @@ CREATE TABLE `Posts_2014` (
 );
 
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posts_2014.csv' 
-INTO TABLE Posts_2014 
+LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posts.csv' 
+INTO TABLE Posts 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-DROP TABLE IF EXISTS Posts_2013;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Posts_2013` (
-  `PostId` int,
-  `PostTypeId` tinyint,
-  `AcceptedAnswerId` int,
-  `ParentId` int,
-  `CreationDate` datetime,
-  `Score` int,
-  `ViewCount` int,
-  `Body` varchar(8000),
-  `OwnerUserId` int,
-  `OwnerDisplayName` varchar(40),
-  `LastEditorUserId` int,
-  `LastEditorDisplayName` varchar(40),
-  `LastEditDate` datetime,
-  `LastActivityDate` datetime,
-  `Title` varchar(250),
-  `Tags` varchar(150),
-  `AnswerCount` int,
-  `CommentCount` int,
-  `FavoriteCount` int,
-  `ClosedDate` datetime,
-  `CommunityOwnedDate` datetime,
-  PRIMARY KEY (`PostId`)
-);
-
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-DROP TABLE IF EXISTS Posts_before_2013;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Posts_before_2013` (
-  `PostId` int,
-  `PostTypeId` tinyint,
-  `AcceptedAnswerId` int,
-  `ParentId` int,
-  `CreationDate` datetime,
-  `Score` int,
-  `ViewCount` int,
-  `Body` varchar(8000),
-  `OwnerUserId` int,
-  `OwnerDisplayName` varchar(40),
-  `LastEditorUserId` int,
-  `LastEditorDisplayName` varchar(40),
-  `LastEditDate` datetime,
-  `LastActivityDate` datetime,
-  `Title` varchar(250),
-  `Tags` varchar(150),
-  `AnswerCount` int,
-  `CommentCount` int,
-  `FavoriteCount` int,
-  `ClosedDate` datetime,
-  `CommunityOwnedDate` datetime,
-  PRIMARY KEY (`PostId`)
-);
-
-
-
-
 
 
 DROP TABLE IF EXISTS Tags;
@@ -254,6 +190,7 @@ IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
+
 DROP TABLE IF EXISTS Votes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -274,4 +211,94 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+-- alter table
+
+SET SQL_SAFE_UPDATES = 0;
+
+update posts set owneruserid = NULL where OwnerUserId = 0;
+
+
+
+
+alter table badges
+add foreign key (userid)
+references users (userid);
+alter table posts
+add foreign key (owneruserid)
+references users (userid);
+
+
+update posthistory set postid = NULL where postid = 23974; -- user id 23974 doesn't exist in parent table
+update comments set postid = NULL where postid = 23974; -- user id 23974 doesn't exist in parent table
+update comments set userid = NULL where userid = 0;
+update posthistory set userid = NULL where userid = 0;
+update postlinks set postid = NULL where  postid = 23974;
+update postlinks set postid = NULL where postid not in (select postid from posts);
+update votes set userid = NULL where userid = 0;
+
+alter table posthistory
+add foreign key (postid)
+references posts (postid);
+
+alter table posthistory
+add foreign key (userid)
+references users (userid);
+
+alter table comments
+add foreign key (postid)
+references posts (postid);
+
+alter table comments 
+add foreign key (userid)
+references users (userid);
+
+alter table postlinks 
+add foreign key (postid)
+references posts (postid);
+
+alter table votes 
+add foreign key (userid)
+references users (userid);
+
+
+
+
+
+create or replace view activity_daily as
+select extract(year_month from date(creationdate)) as YearMonth, yearweek(date(CreationDate)) as Year_Week, date(CreationDate) as Date,  UserId from Votes where votes.UserId > 0
+UNION All
+select extract(year_month from date(creationdate)) as YearMonth, yearweek(date(CreationDate)) as Year_Week, date(CreationDate) as Date,  UserId from Comments where Comments.UserId > 0
+Union All
+select extract(year_month from date(creationdate)) as YearMonth, yearweek(date(CreationDate)) as Year_Week, date(CreationDate) as Date,  OwnerUserId from Posts where Posts.OWnerUserID > 0 and posts.ParentId = "";
+;
+
+create or replace view monthly_activity 
+as select yearmonth,
+count(distinct userId)as active_users
+from activity_daily
+group by YearMonth;
+
+create or replace view weekly_activity 
+as select year_week,
+count(distinct userId)as active_users
+from activity_daily
+group by Year_week;
+
+
+
+create or replace view MAU_WAU_DAU
+as
+select a.date, count(distinct a.userid) as DAU, b.active_users as WAU, c.active_users as MAU
+from activity_daily a
+left join 
+weekly_activity b
+on a.Year_week = b.Year_week
+left join
+monthly_activity c
+on a.yearmonth = c.yearMOnth
+where a.date < '2014-09-14'
+group by a.date limit 2000;
+
 
