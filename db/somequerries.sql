@@ -18,7 +18,7 @@ select
     sum(b.viewcount) totalviews,
     sum(b.answercount) as answersreceived,
     sum(b.commentcount) as commentsreceived,
-    count(c.badgeid) as numberofbadges
+    count(distinct c.name) as numberofbadges
 from users a
 left join posts b
 on a.userid = b.owneruserid
