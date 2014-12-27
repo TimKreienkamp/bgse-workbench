@@ -17,8 +17,8 @@ install)
 	mysql -u $user -p$pswd < db/stackexchange.sql
 	
 
-	mkdir -p "$HOME/Sites/MyApp"
-	cp -rf web/* "$HOME/Sites/MyApp"
+	mkdir -p "$HOME/public_html/MyApp"
+	cp -rf web/* "$HOME/public_html/MyApp"
 
 	echo "done!"
 	;;
@@ -27,7 +27,7 @@ uninstall)
 	echo "Uninstalling"
 	
 	mysql -u $user -p$pswd -e "DROP DATABASE stackexchange;" 
-	rm -rf "$HOME/Sites/MyApp"
+	rm -rf "$HOME/public_html/MyApp"
 
 	echo "done!"
 	;;
