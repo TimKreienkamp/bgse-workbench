@@ -89,9 +89,58 @@ select * from questions_answers_time order by 5;
 
 
 create or replace view
-analysis_datamart
+question_features
 as select
-a.postid as question;
+postid as questionId,
+owneruserid,
+creationdate,
+(time_to_sec(timediff('2014-09-14 11:00:00', creationdate))/3600) as time_diff,
+case when acceptedanswerid = 0 then 0 else 1
+end as target,
+char_length(body) as length_body,
+case when
+tags like '%<regression>%' then 1 else 0
+end as tag_regression,
+case when tags like '%<r>%' then 1 else 0
+end as tag_r,
+case when tags like '%<time-series>%'
+then 1 else 0
+end as tag_timeseries,
+case when tags like '%<machine-learning>%'
+then 1 else 0
+end as tag_ml,
+case when tags like '%<probability>%'
+then 1 else 0
+end as tag_proba,
+case when tags like '%<hypothesis-testing>%'
+then 1 else 0
+end as tag_hypotest,
+case when tags like '%<distributions>%'
+then 1 else 0
+end as tag_dist,
+case when tags like '%<self-study>%'
+then 1 else 0
+end as tag_selfstudy,
+case when tags like '%<logistic>%'
+then 1 else 0
+end as tag_logistic,
+case when tags like '%<correlation>%'
+then 1 else 0
+end as tag_corr,
+case when tags like '%<statistical-significance>%'
+then 1 else 0
+end as tag_sig,
+case when tags like '%<bayesian>%'
+then 1 else 0
+end as tag_bayes
+from posts 
+where (parentid = "" or parentid = 0)
+and (time_to_sec(timediff('2014-09-14 11:00:00', creationdate))/3600) > 119
+and owneruserid > 0;
+
+select * from question_features;
+
+
 
 create or replace view user_features
 as select
@@ -114,13 +163,60 @@ creation_year_2013,
 case when CreationDate between '2014-01-01' and '2014-12-31' then 1 else 0
 end as
 creation_year_2014,
-case when website_url like '%http%' then 1 else 0
+case when websiteurl like '%http%' then 1 else 0
 end
-as website_given
+as website_given,
+case when location != "" then 1 else 0
+end as 
+location_given,
+age
+from users where userid > 0;
+
+desc user_features;
+
+create or replace view analysis_mart
+as select a.*, b.*
+from question_features a
+left join user_features b
+on a.owneruserid = b.userid;
 
 
-from users;
 
-select * from user_features;
 
-desc users;
+-- working with a table here cause views don't allow subselects
+drop table if exists answered_questions;
+create table answered_questions 
+as select 
+a.postid, a.owneruserid, a.creationdate, sum(b.question_count) as aq
+from posts a
+left join 
+(select owneruserid, creationdate, count(postid) as question_count from
+posts where acceptedanswerid != 0 group by 1,2) b 
+on a.owneruserid = b.owneruserid 
+and a.creationdate >= b.creationdate
+where a.parentid = 0
+group by a.postid, a.OwnerUserId;
+
+
+
+create or replace view analysis_mart_w_answered_questions
+as
+select a.*, 
+case when b.aq is NULL then 0
+else b.aq
+end  as questions_answered_to_date
+from analysis_mart a
+join answered_questions b
+on a.questionid = b.postid;
+
+select case when target = 1 then "Answered" else "Unanswered" end as Answer_status, 
+round(count(questionid)/(select count(questionid) from analysis_mart_w_answered_questions)*100,3) as percentage
+from analysis_mart_w_answered_questions group by 1;
+
+
+select * from tune_grid;
+
+
+
+
+select quantile, round(hours,2) as hours from quantiles where quantile like '%0%';

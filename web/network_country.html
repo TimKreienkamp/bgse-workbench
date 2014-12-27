@@ -1,0 +1,90 @@
+<html>
+<head>
+	<title>MyApp</title> 
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="charts.css">
+</head>
+
+<body>
+	<header>
+
+      <SCRIPT LANGUAGE="javascript">
+function changePicture()
+{
+var selection = document.DropPicture.Picture.selectedIndex; //grabs what user selected
+document.pic.src = document.DropPicture.Picture.options[selection].value; //adds 'selection' to grab 'value'
+}
+
+
+</SCRIPT>
+
+      <nav id="nav-wrap">         
+         
+         <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show Menu</a>
+         <a class="mobile-btn" href="#" title="Hide navigation">Hide Menu</a>         
+
+         <ul id="nav" class="nav">
+            <li><a class="smoothscroll" href="./index.php">Home</a></li>
+            <li><a class="smoothscroll" href="./activity.php">User Analytics</a></li>
+            <li><a class="smoothscroll" href="./content.php">Content Analytics</a></li>
+            <li><a class="smoothscroll" href="./predictive_new.php">Predictive Analytics</a></li>
+            <li><a class="smoothscroll" href="./network_age.html">Network Analysis - Age</a></li>
+            <li><a class="smoothscroll" href="./network_country.html">Network Analysis - Country</a></li>
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+
+   </header> <!-- Header End -->
+
+
+
+	<main>
+
+<br>
+<h2> Network Analysis - Country </h2>
+
+<p> Users from countries other than the United States often originate the question <br>
+In most cases users answering a question are from the United States (as expected with a majority of moderators are from the U.S.) </p>
+
+<h5> Topic Networks by Age Country</h5>
+<p> Only the 25 most popular topics are included.</p>
+<br>
+<FORM NAME="DropPicture">
+<SELECT NAME="Picture" onChange="changePicture()"> 
+<OPTION SELECTED>Select Topic!
+<OPTION VALUE="./graph_cycle/r_Country_NetworkGraph.png">R
+<OPTION VALUE="./graph_cycle/regression_Country_NetworkGraph.png">Regression
+<OPTION VALUE="./graph_cycle/time-series_Country_NetworkGraph.png">Time Series
+<OPTION VALUE="./graph_cycle/machine-learning_Country_NetworkGraph.png">Machine Learning
+<OPTION VALUE="./graph_cycle/probability_Country_NetworkGraph.png">Probability
+<OPTION VALUE="./graph_cycle/hypothesis-testing_Country_NetworkGraph.png">Hypothesis Testing
+<OPTION VALUE="./graph_cycle/distributions_Country_NetworkGraph.png">Distributions
+<OPTION VALUE="./graph_cycle/self-study_Country_NetworkGraph.png">Self Study
+<OPTION VALUE="./graph_cycle/correlation_Country_NetworkGraph.png">Correlation
+<OPTION VALUE="./graph_cycle/statistical-significance_Country_NetworkGraph.png">Statistical Significance
+<OPTION VALUE="./graph_cycle/bayesian_Country_NetworkGraph.png">Bayesian
+<OPTION VALUE="./graph_cycle/classification_Country_NetworkGraph.png">Classification
+<OPTION VALUE="./graph_cycle/anova_Country_NetworkGraph.png">ANOVA
+<OPTION VALUE="./graph_cycle/normal-distribution_Country_NetworkGraph.png">Normal Distribution
+<OPTION VALUE="./graph_cycle/clustering_Country_NetworkGraph.png">Clustering
+<OPTION VALUE="./graph_cycle/data-visualization_Country_NetworkGraph.png">Data Visualization
+<OPTION VALUE="./graph_cycle/confidence-interval_Country_NetworkGraph.png">Confidence Interval
+<OPTION VALUE="./graph_cycle/mathematical-statistics_Country_NetworkGraph.png">Mathematical Statistics
+<OPTION VALUE="./graph_cycle/estimation_Country_NetworkGraph.png">Estimation
+<OPTION VALUE="./graph_cycle/multiple-regression_Country_NetworkGraph.png">Multiple Regression
+<OPTION VALUE="./graph_cycle/mixed-model_Country_NetworkGraph.png">Mixed Model
+<OPTION VALUE="./graph_cycle/categorical-data_Country_NetworkGraph.png">Categorical Data
+<OPTION VALUE="./graph_cycle/spss-Country_NetworkGraph.png">SPSS
+<OPTION VALUE="./graph_cycle/repeated-measures-Country_NetworkGraph.png">Repeated Measures
+</SELECT>
+
+
+<IMG SRC="./graph_cycle/r_Country_NetworkGraph.png" style = "width:600px;height:500px;" NAME="pic" BORDER="0">
+
+
+
+
+
+</body>
+</html>

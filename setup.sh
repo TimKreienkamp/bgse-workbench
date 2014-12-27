@@ -26,7 +26,7 @@ install)
 uninstall)
 	echo "Uninstalling"
 	
-	mysql -u $user -p$pswd -e "DROP DATABASE ecommerce;" 
+	mysql -u $user -p$pswd -e "DROP DATABASE stackexchange;" 
 	rm -rf "$HOME/Sites/MyApp"
 
 	echo "done!"

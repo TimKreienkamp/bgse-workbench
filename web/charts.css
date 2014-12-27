@@ -1,0 +1,178 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+
+
+
+
+body {
+  font-family: "Open Sans", Arial;
+  background: #EDEDED;
+}
+main {
+  width: 700px;
+  margin: 10px auto;
+  padding: 10px 40px 30px;
+  background: #FFF;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+p {
+  margin-top: 2rem;
+  font-size: 13px;
+}
+
+header {
+   height: 54px;
+   width: 100%;
+   background: #13171B;
+   position: fixed;
+   left: 0;
+   top: 0;
+   z-index: 990;
+}
+
+#bar-chart {
+  width: 600px;
+  height: 500px;
+  position: relative;
+}
+#line-chart {
+  width: 600px;
+  height: 300px;
+  position: relative;
+}
+#bar-chart::before, #line-chart::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 220px;
+  height: 30px;
+  left: 215px;
+  top: 254px;
+  background: #FAFAFA;
+  box-shadow: 1px 1px 0 0 #DDD;
+}
+#pie-chart {
+  width: 300px;
+  height: 200px;
+  position: relative;
+}
+
+#pie-chart::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 115px;
+  left: 315px;
+  top: 0;
+  background: #FAFAFA;
+  box-shadow: 1px 1px 0 0 #DDD;
+}
+#pie-chart::after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 260px;
+  left: 70px;
+  width: 170px;
+  height: 2px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  box-shadow: 0 0 3px 4px rgba(0,0,0,0.1);
+}
+
+#table{
+  width:500px;
+  height: 250px;
+  position:relative;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 13px;
+  background: #DDD;
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+#nav-wrap, #nav-wrap ul, #nav-wrap li, #nav-wrap a {
+   margin: 0;
+   padding: 0;
+   border: none;
+   outline: none;
+}
+
+/* nav-wrap */
+#nav-wrap {
+   font: 11px 'montserrat-regular', sans-serif;
+   text-transform: uppercase;
+   letter-spacing: 1.5px;
+   float: left;
+}
+
+/* hide toggle button */
+#nav-wrap > a { display: none; }
+
+ul#nav {
+   min-height: 54px;
+   width: auto;
+
+   /* left align the menu */
+   text-align: left;
+}
+ul#nav li {
+   position: relative;
+   list-style: none;
+   height: 54px;
+   display: inline-block;
+
+}
+
+/* Links */
+ul#nav li a {
+
+   /* 8px padding top + 8px padding bottom + 38px line-height = 54px */
+   display: inline-block;
+   padding: 8px 8px;
+   line-height: 38px;
+  text-decoration: none;
+   text-align: left;
+   color: #58687A;
+
+  -webkit-transition: color .2s ease-in-out;
+  -moz-transition: color .2s ease-in-out;
+  -o-transition: color .2s ease-in-out;
+  -ms-transition: color .2s ease-in-out;
+  transition: color .2s ease-in-out;
+}
+ul#nav li a:hover { color: #fff; }
+ul#nav li a:active { background-color: !important; }
+ul#nav li.current a { color: #fff; }
+
+.header-cont {
+    width:100%;
+    position:fixed;
+    top:0px;
+}
+
+#header {
+  height: 20px;
+  margin:0;
+  /*background: white url('images/shredder.png') repeat right top;*/
+  background: #13171B;
+}
+
+#main ul{
+  margin-top:0px;
+  margin-left: 0px;
+  padding-left: 30px;
+  margin-bottom:10px;
+  list-style-type: decimal;
+  line-height: 1.5; 
+}
+
+#main li{
+  margin-top: 10px;
+}

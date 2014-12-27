@@ -9,7 +9,7 @@ import pandas
 
 from xml.dom import minidom
 xmldoc = minidom.parse('/users/timkreienkamp/documents/studium/data_science/computing_lab/project/project_data/stats.stackexchange.com/posts.xml')
-itemlist = xmldoc.getElementsByTagName('row', default = " ") 
+itemlist = xmldoc.getElementsByTagName('row') 
 #print len(itemlist)
 print itemlist[0].attributes['Id'].value
 
@@ -89,5 +89,6 @@ for i in xrange(0, len(itemlist)) :
             CommunityOwnedDate = ""
         post_frame.loc[i] = [Id,PostTypeId,AcceptedAnswerId,ParentId,CreationDate,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,LastEditorUserId,LastEditorDisplayName,LastEditDate,LastActivityDate,Title,Tags,AnswerCount,CommentCount,FavoriteCount,ClosedDate,CommunityOwnedDate]
         print i
-        
 
+post_frame.to_csv("posts_subsample.csv")
+p

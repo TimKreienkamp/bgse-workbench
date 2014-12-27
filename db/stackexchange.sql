@@ -25,7 +25,7 @@ CREATE TABLE `Badges` (
   PRIMARY KEY (`BadgeID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/badges.csv' 
+LOAD DATA LOCAL INFILE './data/badges.csv' 
 INTO TABLE Badges 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -47,7 +47,7 @@ CREATE TABLE `Comments` (
   PRIMARY KEY (`CommentID`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/comments.csv' 
+LOAD DATA LOCAL INFILE './data/comments.csv' 
 INTO TABLE Comments 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -70,7 +70,7 @@ CREATE TABLE `PostHistory` (
   PRIMARY KEY (`PostHistoryID`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posthistory.csv' 
+LOAD DATA LOCAL INFILE './data/posthistory.csv' 
 INTO TABLE PostHistory 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -91,7 +91,7 @@ CREATE TABLE `PostLinks` (
   PRIMARY KEY (`PostLinkId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/postlinks.csv' 
+LOAD DATA LOCAL INFILE './data/postlinks.csv' 
 INTO TABLE PostLinks 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -130,7 +130,7 @@ CREATE TABLE `Posts` (
 );
 
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/posts.csv' 
+LOAD DATA LOCAL INFILE './data/posts.csv' 
 INTO TABLE Posts 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -151,7 +151,7 @@ CREATE TABLE `Tags` (
   PRIMARY KEY (`TagId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/tags.csv' 
+LOAD DATA LOCAL INFILE './data/tags.csv' 
 INTO TABLE Tags 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -181,7 +181,7 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`UserId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/users.csv' 
+LOAD DATA LOCAL INFILE './data/users.csv' 
 INTO TABLE Users 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -204,7 +204,7 @@ CREATE TABLE `Votes` (
   PRIMARY KEY (`VoteId`)
 );
 
-LOAD DATA LOCAL INFILE '/Users/timkreienkamp/Documents/Studium/data_science/computing_lab/project/bgse-workbench/data/votes.csv' 
+LOAD DATA LOCAL INFILE './data/votes.csv' 
 INTO TABLE Votes 
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
@@ -266,6 +266,8 @@ references users (userid);
 
 
 
+
+
 create or replace view activity_daily as
 select extract(year_month from date(creationdate)) as YearMonth, yearweek(date(CreationDate)) as Year_Week, date(CreationDate) as Date,  UserId from Votes where votes.UserId > 0
 UNION All
@@ -302,3 +304,213 @@ where a.date < '2014-09-14'
 group by a.date limit 2000;
 
 
+create or replace view
+question_features
+as select
+postid as questionId,
+owneruserid,
+creationdate,
+(time_to_sec(timediff('2014-09-14 11:00:00', creationdate))/3600) as time_diff,
+case when acceptedanswerid = 0 then 0 else 1
+end as target,
+char_length(body) as length_body,
+case when
+tags like '%<regression>%' then 1 else 0
+end as tag_regression,
+case when tags like '%<r>%' then 1 else 0
+end as tag_r,
+case when tags like '%<time-series>%'
+then 1 else 0
+end as tag_timeseries,
+case when tags like '%<machine-learning>%'
+then 1 else 0
+end as tag_ml,
+case when tags like '%<probability>%'
+then 1 else 0
+end as tag_proba,
+case when tags like '%<hypothesis-testing>%'
+then 1 else 0
+end as tag_hypotest,
+case when tags like '%<distributions>%'
+then 1 else 0
+end as tag_dist,
+case when tags like '%<self-study>%'
+then 1 else 0
+end as tag_selfstudy,
+case when tags like '%<logistic>%'
+then 1 else 0
+end as tag_logistic,
+case when tags like '%<correlation>%'
+then 1 else 0
+end as tag_corr,
+case when tags like '%<statistical-significance>%'
+then 1 else 0
+end as tag_sig,
+case when tags like '%<bayesian>%'
+then 1 else 0
+end as tag_bayes
+from posts 
+where (parentid = "" or parentid = 0)
+and (time_to_sec(timediff('2014-09-14 11:00:00', creationdate))/3600) > 119
+and owneruserid > 0;
+
+
+create or replace view user_features
+as select
+userid, Reputation,
+case when CreationDate between '2009-01-01' and '2009-12-31' then 1 else 0
+end as
+creation_year_2009,
+case when CreationDate between '2010-01-01' and '2010-12-31' then 1 else 0
+end as
+creation_year_2010,
+case when CreationDate between '2011-01-01' and '2011-12-31' then 1 else 0
+end as
+creation_year_2011,
+case when CreationDate between '2012-01-01' and '2012-12-31' then 1 else 0
+end as
+creation_year_2012,
+case when CreationDate between '2013-01-01' and '2013-12-31' then 1 else 0
+end as
+creation_year_2013,
+case when CreationDate between '2014-01-01' and '2014-12-31' then 1 else 0
+end as
+creation_year_2014,
+case when websiteurl like '%http%' then 1 else 0
+end
+as website_given,
+case when location != "" then 1 else 0
+end as 
+location_given,
+age
+from users where userid > 0;
+
+create or replace view analysis_mart
+as select a.*, b.*
+from question_features a
+left join user_features b
+on a.owneruserid = b.userid;
+
+
+drop table if exists answered_questions;
+create table answered_questions 
+as select 
+a.postid, a.owneruserid, a.creationdate, sum(b.question_count) as aq
+from posts a
+left join 
+(select owneruserid, creationdate, count(postid) as question_count from
+posts where acceptedanswerid != 0 group by 1,2) b 
+on a.owneruserid = b.owneruserid 
+and a.creationdate >= b.creationdate
+where a.parentid = 0
+group by a.postid, a.OwnerUserId;
+
+
+create or replace view analysis_mart_w_answered_questions
+as
+select a.*, 
+case when b.aq is NULL then 0
+else b.aq
+end  as questions_answered_to_date
+from analysis_mart a
+join answered_questions b
+on a.questionid = b.postid;
+
+create table userdata
+as 
+select
+	a.userid,
+	a.reputation,
+	a.creationdate,
+    a.location,
+    a.views,
+    a.upvotes,
+    a.downvotes,
+    a.age,
+    count(distinct(b.postid)) as totalposts,
+    sum(b.score) as totalscore,
+    sum(b.viewcount) totalviews,
+    sum(b.answercount) as answersreceived,
+    sum(b.commentcount) as commentsreceived,
+    count(distinct(c.Name)) as numberofbadges
+from users a
+left join posts b
+on a.userid = b.owneruserid
+left join badges c
+on a.userid = c.userid
+group by 1;
+
+create or replace view users_acquired_weekly
+as select
+left(yearweek(creationdate),4) as year,
+right(yearweek(creationdate),2) as week,
+count(distinct userid) as users
+from users
+group by 1,2
+having year is not null
+;
+
+
+create or replace view questions_asked_weekly
+as
+select 
+	left(yearweek(creationdate), 4) as year,
+	right(yearweek(a.creationdate),2)as week, 
+	count(distinct a.postid) as questions_asked
+from posts a
+where yearweek(creationdate) > 201029  
+group by 1,2
+;
+
+
+
+drop table if exists answer_share_weekly;
+create table answer_share_weekly as select 
+	left(yearweek(a.creationdate),4) as year,
+    right(yearweek(a.creationdate),2) as week,
+	count(distinct a.postid) as questions_asked,
+    round(count(distinct b.postid)/count(distinct a.postid)*100,2) as percentage_answered
+from 
+posts a 
+left join
+(select yearweek(creationdate) as week, postid
+from posts where (acceptedanswerid != '' or acceptedanswerid != 0) and parentid = '') b
+on yearweek(a.creationdate)= b.week
+where a.parentid = ''
+group by 1,2
+;
+
+drop table if exists topics;
+create table
+topics 
+as select
+distinct(a.tagname), 
+sum(b.commentcount) as comments,
+sum(b.viewcount) as views,
+sum(b.answercount) as answers
+from tags a
+left join posts b
+on b.tags like concat('%',a.tagname, '%') 
+group by 1;
+
+create or replace view questions_answers_time
+as
+select a.postid as question, b.postid as answer,  
+a.CreationDate as date_asked,
+b.CreationDate as date_answered,
+time_to_sec(timediff(b.creationdate, a.creationdate))/3600 as time_elapsed
+from posts a
+join posts b
+on a.acceptedanswerid = b.postid where  a.parentid = 0 and a.AcceptedAnswerId != 0;
+
+create index user_date_index 
+on users (creationdate);
+
+create index post_data_index
+on posts (creationdate);
+
+create index user_index 
+on users (userid);
+
+create index post_index
+on posts (postid);

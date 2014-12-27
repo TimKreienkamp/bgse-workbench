@@ -42,7 +42,12 @@ header .logo a {
    height: 18px;   
 }
 
-
+table {
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: lightgrey;
+  font-color: darkgrey;
+} 
 
 /* primary navigation
 --------------------------------------------------------------------- */
@@ -129,7 +134,11 @@ ul#nav li.current a { color: #fff; }
 	color: #444444;
 }
 
-
+#section {
+    width:350px;
+    float:left;
+    padding:10px; 
+}
 
 #main{
 	margin-top: 0px;
