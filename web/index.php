@@ -44,7 +44,7 @@
 			<br>
 
 <br>
-<h2 style = "text-align:center; color:white;">Project aim </h4>
+<h2 style = "text-align:center; color:white;">Project Aim </h4>
 <br>
 <p style = "color:white;">Aim of the project is to construct a statistical web service for the open Q&A site Cross Validated.  The focus lies on creating a database, finding insights within the database and to construct a predictive model based on the data.  The results are presented in a dashboard that provides an immediate overview of the key performance indicators as well as the predictive model.</p>
 <br>
